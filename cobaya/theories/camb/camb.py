@@ -263,13 +263,8 @@ class CAMB(BoltzmannBase):
     def initialize(self):
         """Importing CAMB from the correct path, if given."""
         try:
-            install_path = self.get_path(self.packages_path) \
-                if self.packages_path else None
-            min_version = None if self.ignore_obsolete else self._min_camb_version
-            self.camb = load_external_module(
-                "camb", path=self.path, install_path=install_path,
-                min_version=min_version, get_import_path=self.get_import_path,
-                logger=self.log, not_installed_level="debug")
+            import camb
+            self.camb = camb
         except VersionCheckError as excpt:
             raise VersionCheckError(
                 str(excpt) + " If you are using CAMB unmodified, upgrade with"
